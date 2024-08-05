@@ -13,10 +13,13 @@ const typeDefs = `#graphql
   }
 `;
 
+const getHelloWorld = async () => 'Hello, world!';
+const goodMorning = async (_, { name }) => `Good morning, ${name}!`;
+
 const resolvers = {
   Query: {
-    getHelloWorld: async () => 'Hello, world!',
-    goodMorning: async (_, { name }) => `Good morning, ${name}!`,
+    getHelloWorld: getHelloWorld,
+    goodMorning: goodMorning,
   },
 };
 
