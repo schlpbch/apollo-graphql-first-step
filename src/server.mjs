@@ -6,7 +6,7 @@ import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-const CART_API_URL = 'http://localhost:3100/carts';
+import CartAPI from './datasources.js';
 
 const typeDefs = `#graphql
   scalar currency
@@ -71,55 +71,24 @@ const typeDefs = `#graphql
 `;
 
 const goodMorning = async (_, { name }) => `Good morning, ${name}!`;
-const getCart = async (_, { id }) => {
-  console.log('getCart');
-  const response = await fetch(`${CART_API_URL}/${id}`);
-  const cart = await response.json();
-  return cart;
-};
-
-const getCarts = async () => {
-  console.log('getCarts');
-  const response = await fetch(CART_API_URL);
-  const carts = await response.json();
-  return carts;
-};
-
-const addCart = async (_, { cart }) => {
-  console.log('addCart');
-  const response = await fetch(CART_API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(cart),
-  });
-  if (response.status !== 201) {
-    throw new Error('Failed to add cart');
-  }
-  return await response.json();
-};
-
-const deleteCart = async (_, { id }) => {
-  console.log('deleteCart');
-  const response = await fetch(`${CART_API_URL}/${id}`, {
-    method: 'DELETE',
-  });
-  if (response.status !== 200) {
-    throw new Error('Failed to delete cart');
-  }
-  return true;
-};
 
 const resolvers = {
   Query: {
     goodMorning: goodMorning,
-    getCarts: getCarts,
-    getCart: getCart,
+    getCarts: async (_, __, { dataSources }) => {
+      return await dataSources.cartAPI.getCarts();
+    },
+    getCart: async (_, { id }, { dataSources }) => {
+      return await dataSources.cartAPI.getCart(_, { id });
+    },
   },
   Mutation: {
-    addCart: addCart,
-    deleteCart: deleteCart,
+    addCart: async (_, { cartInput }, { dataSources }) => {
+      return await dataSources.cartAPI.addCart(_, { cartInput });
+    },
+    deleteCart: async (_, { id }, { dataSources }) => {
+      return await dataSources.cartAPI.deleteCart(_, { id });
+    },
   },
 };
 
@@ -129,6 +98,9 @@ const httpServer = http.createServer(app);
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  dataSources: () => ({
+    cartAPI: new CartAPI(),
+  }),
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
