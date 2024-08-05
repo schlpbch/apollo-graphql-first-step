@@ -4,8 +4,8 @@
     "mock-api": "json-server --watch src/api/db.json --port 3100"
   },
   "dependencies": {
+    "@apollo/datasource-rest": "^6.3.0",
     "@apollo/server": "^4.10.5",
-    "apollo-datasource-rest": "^3.7.0",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.19.2",

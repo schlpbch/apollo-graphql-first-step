@@ -1,6 +1,6 @@
-const { RESTDataSource } = require('apollo-datasource-rest');
+import { RESTDataSource } from '@apollo/datasource-rest';
 
-class CartAPI extends RESTDataSource {
+export class CartAPI extends RESTDataSource {
   constructor() {
     super('http://localhost:3100/carts');
   }
@@ -49,5 +49,3 @@ class CartAPI extends RESTDataSource {
     return true;
   }
 }
-
-
