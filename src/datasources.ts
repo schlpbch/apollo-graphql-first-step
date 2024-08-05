@@ -1,33 +1,32 @@
 import { RESTDataSource } from '@apollo/datasource-rest';
 
 export class CartAPI extends RESTDataSource {
+  override baseURL = 'http://localhost:3100/carts';
+
   constructor() {
-    super('http://localhost:3100/carts');
-    console.log('CartAPI constructor');
+    super();
   }
 
-  async willSendRequest(request) {
-    request.headers.set('Authorization', this.context.token);
+  override willSendRequest(_): void {
+    // request.headers.set('Authorization', this.context.token);
     console.log('willSendRequest');
   }
 
-  async getCart(_, { id }) {
-    console.log('getCart');
-    const response = await fetch(`${CART_API_URL}/${id}`);
-    const cart = await response.json();
-    return cart;
+  async getCart(id: string) {
+    console.log(`getCart ${id}`);
+    return this.get(`carts/${id}`);
   }
 
   async getCarts() {
     console.log('getCarts');
-    const response = await fetch(CART_API_URL);
-    const carts = await response.json();
-    return carts;
+    return this.get('carts');
   }
 
-  async addCart(_, { cart }) {
+  async addCart(cart) {
     console.log('addCart');
-    const response = await fetch(CART_API_URL, {
+    return this.post('carts', cart);
+    /*
+    const response = await fetch(this.baseURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,16 +37,20 @@ export class CartAPI extends RESTDataSource {
       throw new Error('Failed to add cart');
     }
     return await response.json();
+    */
   }
 
-  async deleteCart(_, { id }) {
+  async deleteCart(id: string) {
     console.log('deleteCart');
-    const response = await fetch(`${CART_API_URL}/${id}`, {
+    return this.delete(`carts/${id}`);
+    /*
+    const response = await fetch(`${this.baseURL}/${id}`, {
       method: 'DELETE',
     });
     if (response.status !== 200) {
       throw new Error('Failed to delete cart');
     }
     return true;
+    */
   }
 }

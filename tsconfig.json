@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "lib": ["esnext", "DOM"],
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "types": ["node"],
+    "typeRoots": ["node_modules/@types", "src/types"],
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "alwaysStrict": false,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": false,
+
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noImplicitThis": true,
+    // generated code conflicts with this rule >> disable
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "allowUnreachableCode": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+
+    "target": "ES2022",
+    "outDir": "build/main",
+    "rootDir": "src",
+    "declaration": true,
+    "inlineSourceMap": true,
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true, // true: needed for sharing code between jest- and k-6 performance tests
+    "forceConsistentCasingInFileNames": true,
+
+    "noEmit": false, // false because it prevent build content in build/main dir
+    "isolatedModules": true,
+    "incremental": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    /* Debugging Options */
+    "traceResolution": false /* Report module resolution log messages. */,
+    "listEmittedFiles": false /* Print names of generated files part of the compilation. */,
+    "listFiles": false /* Print names of files part of the compilation. */,
+    "pretty": true /* Stylize errors and messages using color and context. */
+  },
+  "include": ["src/**/*.ts"],
+  "compileOnSave": true
+}
