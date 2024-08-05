@@ -1,0 +1,38 @@
+{
+  "carts": [
+    {
+      "id": "1",
+      "items": [
+        {
+          "id": "1",
+          "quantity": 2,
+          "product": {
+            "id": "1",
+            "name": "Apple",
+            "price": {
+              "amount": 199,
+              "currency": "CHF"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "items": [
+        {
+          "id": "1",
+          "quantity": 2,
+          "product": {
+            "id": "2",
+            "name": "Bread",
+            "price": {
+              "amount": 399,
+              "currency": "EUR"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
