@@ -3,10 +3,12 @@ import { RESTDataSource } from '@apollo/datasource-rest';
 export class CartAPI extends RESTDataSource {
   constructor() {
     super('http://localhost:3100/carts');
+    console.log('CartAPI constructor');
   }
 
   async willSendRequest(request) {
     request.headers.set('Authorization', this.context.token);
+    console.log('willSendRequest');
   }
 
   async getCart(_, { id }) {

@@ -98,9 +98,9 @@ const httpServer = http.createServer(app);
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  dataSources: () => ({
+  dataSources: {
     cartAPI: new CartAPI(),
-  }),
+  },
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
