@@ -6,7 +6,7 @@ import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-import {CartAPI} from './datasources.mjs';
+import { CartAPI } from './datasources.mjs';
 
 const typeDefs = `#graphql
   scalar currency
@@ -75,19 +75,19 @@ const goodMorning = async (_, { name }) => `Good morning, ${name}!`;
 const resolvers = {
   Query: {
     goodMorning: goodMorning,
-    getCarts: async (_, __, { dataSources }) => {
-      return await dataSources.cartAPI.getCarts();
+    getCarts: (_, __, dataSources) => {
+      return dataSources.cartAPI.getCarts();
     },
-    getCart: async (_, { id }, { dataSources }) => {
-      return await dataSources.cartAPI.getCart(_, { id });
+    getCart: (_, { id }, { dataSources }) => {
+      return dataSources.cartAPI.getCart(_, { id });
     },
   },
   Mutation: {
-    addCart: async (_, { cartInput }, { dataSources }) => {
-      return await dataSources.cartAPI.addCart(_, { cartInput });
+    addCart: (_, { cartInput }, { dataSources }) => {
+      return dataSources.cartAPI.addCart(_, { cartInput });
     },
-    deleteCart: async (_, { id }, { dataSources }) => {
-      return await dataSources.cartAPI.deleteCart(_, { id });
+    deleteCart: (_, { id }, { dataSources }) => {
+      return dataSources.cartAPI.deleteCart(_, { id });
     },
   },
 };
