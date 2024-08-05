@@ -59,7 +59,7 @@ const typeDefs = `#graphql
 
   type Query {
     goodMorning(name: String!): String  
-    getCarts: [Cart]
+    getCarts: [Cart!]
     getCart(id: ID!): Cart
   }
 
