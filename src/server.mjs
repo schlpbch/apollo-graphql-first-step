@@ -6,7 +6,7 @@ import http from 'http';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-import CartAPI from './datasources.js';
+import {CartAPI} from './datasources.js';
 
 const typeDefs = `#graphql
   scalar currency
